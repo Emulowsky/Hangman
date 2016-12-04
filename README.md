@@ -1,4 +1,4 @@
 # Hangman
 Wisielec CMD C++
 
-Prosta gra z bazą wyrazów w pliku tekstowym.
+Prosta gra z bazą wyrazów w pliku tekstowym, obsługująca polskie znaki.
