@@ -80,6 +80,7 @@ protected:
 
 class Wisielec :protected Slowa{
 protected:
+    string a="a";
     bool sprawdz(string litera){
         for(int i=0;i<dlugosc;i++){
             if(litera[0]==obiekt[i])
@@ -93,16 +94,6 @@ protected:
             if(litera[0]==obiekt[i])
                 wyraz[i]=litera[0];
         }
-    }
-
-    void pudla(int szanse){
-        int ile=7-szanse;
-        cout<<"Pudˆa: ";
-        for(int i=0;i<ile;i++)
-            if(ile==i+1)
-                cout<<ntf[i]<<endl;
-            else
-                cout<<ntf[i]<<", ";
     }
 
     bool czyBylaTrafiona(string litera){
@@ -125,6 +116,29 @@ protected:
         return false;
     }
 
+    int nieTrafione(){
+        int i=0;
+        for(int i=0;i<7;i++){
+            if(ntf[i]==a[0])
+                return i;
+        }
+
+    }
+
+    void pudla(int szanse){
+        cout<<"Pudˆa: ";
+        int ile=nieTrafione();
+        for(int i=0;i<ile;i++){
+            if(ntf[i]==a[0])
+                continue;
+            else if(i+1==ile)
+                cout<<ntf[i]<<endl;
+            else
+                cout<<ntf[i]<<", ";
+        }
+
+    }
+
 };
 
 class Gra :public Wisielec{
@@ -144,6 +158,7 @@ public:
     }
 
     bool graj(){
+        int element;
         do{
         system("cls");
         if(lPoziomow>2)
@@ -163,8 +178,10 @@ public:
             cout<<"ups...pudˆo."<<endl;
             if(szanse!=1)
                 cout<<"spr¢buj jeszcze raz"<<endl;
+            element=nieTrafione();
+            if(litera.length()==1)
+                ntf[element]=litera[0];
             szanse--;
-            ntf[6-szanse]=litera[0];
             if(szanse!=0)
             system("pause");
         }
@@ -192,16 +209,20 @@ public:
                 naDuza(litera);
                 return;
             }
+            if(temp.length()>1)
+                return;
             while(litera.length()!=1){
                 cout<<"Zˆy znak!"<<endl;
                 cin.clear();
                 cin.sync();
                 cin>>litera;
                 temp=litera;
-                    if(naDuza(temp)==obiekt){
+                if(naDuza(temp)==obiekt){
                     naDuza(litera);
                     return;
                 }
+                if(temp.length()>1)
+                    return;
             }
             litera=naDuza(litera);
         }while(czyBylaTrafiona(litera) || czyByla(litera));
